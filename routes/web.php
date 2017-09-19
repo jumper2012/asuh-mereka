@@ -19,6 +19,7 @@ Route::resource('student', 'StudentController');
 
 Route::get('/user/{id}', 'UserController@show');
 Route::patch('/user/{id}', 'UserController@update');
+Route::post('/user-change-password/{id}', 'UserController@changePassword');
 
 Route::get('/home', 'HomeController@index');
 Route::get('/home/kabupaten/{id}', 'AjaxController@kabupaten');

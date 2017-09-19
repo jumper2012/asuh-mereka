@@ -31,6 +31,13 @@
             {{ Session::get('message') }}
           </div>
         @endif
+        @if (Session::has('error'))
+          <div class="alert alert-error alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> Error!</h4>
+            {{ Session::get('error') }}
+          </div>
+        @endif
           <div class="row">
             <div class="col-md-3">
 
@@ -108,7 +115,8 @@
               <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#timeline" data-toggle="tab">Timeline</a></li>
-                  <li><a href="#settings" data-toggle="tab">Edit Profile</a></li>
+                  <li><a href="#profil" data-toggle="tab">Edit Profil</a></li>
+                  <li><a href="#akun" data-toggle="tab">Ganti Password</a></li>
                 </ul>
                 <div class="tab-content">
                   <!-- /.tab-pane -->
@@ -208,7 +216,7 @@
                   </div>
                   <!-- /.tab-pane -->
 
-                  <div class="tab-pane" id="settings">
+                  <div class="tab-pane" id="profil">
                     {!! Form::model($user, [
                         'method' => 'PATCH',
                         'url' => ['/user', auth()->user()->id],
@@ -217,6 +225,17 @@
                     ]) !!}
 
                     @include ('user.form', ['submitButtonText' => 'Update'])
+
+                    {!! Form::close() !!}
+                  </div>
+                  <div class="tab-pane" id="akun">
+                    {!! Form::model($user, [
+                        'method' => 'POST',
+                        'url' => ['/user-change-password', auth()->user()->id],
+                        'class' => 'form-horizontal',
+                    ]) !!}
+
+                    @include ('user.form-password', ['submitButtonText' => 'Update Password'])
 
                     {!! Form::close() !!}
                   </div>

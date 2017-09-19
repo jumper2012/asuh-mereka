@@ -70,6 +70,23 @@ class UserController extends Controller
         return redirect('user');
     }
 
+    public function changePassword($id, Request $request)
+    {
+        
+        $requestData = $request->all();
+
+        if($requestData['password']!=$requestData['re_password']){
+            return redirect('user/'.$id)->with('error','Password gagal diperbaharui, password tidak sesuai.');
+
+        } 
+
+        $user = User::findOrFail($id);
+        $requestData['password']= \Hash::make($requestData['password']);
+        $user->update($requestData);
+
+        return redirect('user/'.$user->id)->with('message','Password berhasil diperbaharui.');
+    }
+
     /**
      * Display the specified resource.
      *
